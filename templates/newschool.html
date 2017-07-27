@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+	<section class="content">
+		<div class="form">
+			<h2>Add a New School</h2>
+			<br>
+			<form action="{{url_for('newSchool')}}" method = 'post'>
+				<label>
+					Name:
+					<input type = 'text' size = '42' name = 'name' required><br>
+				</label>
+				<label>
+					Branch:
+					<input type = 'text' size = '40' name = 'branch'><br>
+				</label>
+				<label>
+					City:
+					<input type = 'text' size = '44' name = 'city'><br>
+				</label>
+				<label>
+					Website:
+					<input type = 'text' size = '40' name = 'website'><br>
+				</label>
+				<br>
+				<input type = 'submit' size = '30' name = 'Create'>
+				<a href = "{{url_for('showSchools')}}"> Cancel </a>	
+			</form>
+		</div>
+	</section>
+{% endblock %}

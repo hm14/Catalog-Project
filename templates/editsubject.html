@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+	{% if error %}
+		<script>
+			alert("You are not authorized to perform this action!");
+		</script>
+	{% endif %}
+
+	<section class="content">
+		<div class="form">
+			<h1>Edit a Subject</h1>
+			<form action="{{url_for('editSubject', school_id=school_id, subject_id=subject_id)}}" method = 'post'>
+				<label>Name: 
+					<input type = 'text' size = '30' name = 'name' value = '{{subject_to_edit.name}}'>
+				</label>
+				<br><br>
+				<label>Teacher: 
+					<input type = 'text' size = '30' name = 'teacher' value = '{{subject_to_edit.teacher}}'>
+				</label>
+				<br><br>
+				<label>Textbook: 
+					<input type = 'text' size = '30' name = 'textbook' value = '{{subject_to_edit.textbook}}'>
+				</label>
+				<br><br>
+				<label>
+					Level:
+					<br> 
+					{% if subject_to_edit.level %}
+						{% if subject_to_edit.level == 'O-levels' %}
+							<input type = 'radio' name = 'level', value='O-levels' checked> O-levels <br>
+							<input type = 'radio' name = 'level', value='A-levels'> A-levels
+						{% elif subject_to_edit.level == 'A-levels' %}
+							<input type = 'radio' name = 'level', value='O-levels'> O-levels
+							<input type = 'radio' name = 'level', value='A-levels' checked> A-levels <br>
+						{% endif %}
+					{% else %}
+						<input type = 'radio' name = 'level', value='O-levels'> O-levels
+						<input type = 'radio' name = 'level', value='A-levels'> A-levels <br>
+					{% endif %}
+				</label>
+				<br><br>
+				<input type = 'submit' value = 'Edit Subject'>
+				<a href = "{{url_for('showSubjects', school_id = school_id)}}"> Cancel </a>
+			</form>
+		</div>
+	</section>
+{% endblock %}

@@ -1,0 +1,67 @@
+	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+		</script>
+		<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
+		</script>
+	</head>
+
+{% extends "base.html" %}
+{% block content %}
+	<br><br>
+	<!-- GOOGLE PLUS SIGN IN-->
+		<div id="signinButton">
+			<span class="g-signin"
+				data-scope="openid email"
+				data-clientid="396546396057-0e2eq5q9vch0qoh445iivlf9s82oovnn.apps.googleusercontent.com"
+				data-redirecturi="postmessage"
+				data-accesstype="offline"
+				data-cookiepolicy="single_host_origin"
+				data-callback="signInCallback"
+				data-approvalprompt="force">
+			</span>
+		</div>
+
+		<div id="result"></div>
+		<script>
+			function signInCallback(authResult) {
+				// User authorized if authResult has access code from google
+				if (authResult['code']) {
+					// Hide the sign-in button now that the user is authorized
+					$('#signinButton').attr('style', 'display: none');
+					// Send the 1-time-use code to the server
+					// if server respends then write a 'login success' message
+					// to web page and redirect to home page
+					$.ajax({
+						type: 'POST',
+						url: '/gconnect?state={{STATE}}',
+						// Set this to false to keep jquery from processing response into str
+						processData: false,
+						contentType: 'application/octet-stream; charset=utf-8',
+						// Specify the data we are sending to server: 1-time-use code
+						data: authResult['code'],
+						// Receives response code
+						success: function(result) {
+							// if successful response code i.e. 200 is received from server
+							if(result) {
+								// returns successful login message to user + redirect
+								$('#result').html('Login Succesful!<br>' + result + '<br>Redirecting...')
+								// redirect after 3 seconds i.e. introduce time lag
+								setTimeout(function() {
+									window.location.href = "/schools";
+								}, 3000);
+							// if an error was reported by google
+							} else if(authResult['error']) {
+								console.log('There was an error: ' + authResult['error']);
+							// if no response was received
+							} else {
+								$('#result').html('Failed to make a server-side call. Check your configuration and console');
+
+							}
+						}
+					});
+				}
+			}			
+		</script>
+		<br>
+		<!-- END GOOGLE PLUS SIGN IN-->
+{% endblock %}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" src="//normalize-css.googlecode.com/svn/trunk/normalize.css">
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+		<title>Subjective!</title>
+	</head>
+
+	<body>
+		<container class="container">
+			<header class="head">
+				<div class="logo-row">
+					<div class="logo-col">
+						<div id="logo">
+							Subjective
+						</div>
+					</div>
+				</div>
+				<div class="header">
+					<div class="title">
+						  <a href="/login">Login</a>
+						  |
+						  <a href="/disconnect">Logout</a>
+					</div>
+				</div>
+			</header>
+
+			<nav class="nav-bar">
+				  <a href="/">Home</a>
+				  <a href="/schools">Schools</a>
+				  <a href="/subjectsearch">Search by Subject</a>
+			</nav>
+
+	{% block content%}
+	{% endblock %}
+			
+		</container>
+	</body>
+</html>

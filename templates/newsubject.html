@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+	{% if error %}
+		<script>
+			alert("You are not authorized to perform this action!");
+		</script>
+	{% endif %}
+
+	<section class="content">
+		<div class="form">
+		<h2>Add a New Subject</h2>
+		<br>
+		<form action="{{url_for('newSubject', school_id=school_id)}}" method = 'post'>
+			<label>Name: 
+				<input type = 'text' size = '30' name = 'name' required>
+			</label>
+			<br><br>
+			<label>
+			Level:
+				<input type = 'radio' name = 'level', value='O-levels' required> O-levels
+				<input type = 'radio' name = 'level', value='A-levels' required> A-levels
+			</label>
+			<br><br>
+			<label>Teacher: 
+				<input type = 'text' size = '30' name = 'teacher' required>
+			</label>
+			<br><br>
+			<label>
+				Textbook:
+				<input type = 'text' size = '30' name = 'textbook'>
+			</label>
+			<br><br>
+			<input type = 'submit' value = 'Add Subject'>
+			<a href = "{{url_for('showSubjects', school_id = school_id)}}"> Cancel </a>
+		</form>
+		</div>
+		</section>
+{% endblock %}

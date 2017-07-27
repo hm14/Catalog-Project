@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<section class="content">
+		<div class="form">
+			<h2>Search for a Subject</h2>
+			<br>
+			<form action="{{url_for('searchBySubject')}}" method = 'post'>
+				<label>Name: 
+					<input type = 'text' size = '30' name = 'name' required>
+				</label>
+				<br>
+				<label>Level: 
+					<input type = 'text' size = '30' name = 'level' required>
+				</label>
+				<br><br>
+				<input type = 'submit' value = 'Search'>
+			</form>
+		</div>
+		<br><br>
+		<div class="contents">
+			<div id='subjects'>
+			{% if matched_schools %}
+				<h4>{{level_sought}}, {{subject_sought}} is offered by:</h4>
+					{% for matched_school in matched_schools %}
+						<a href='/schools/{{matched_school[1]}}'>{{matched_school[0]}}</a><br>
+					{% endfor %}
+			{% endif %}
+			</div>
+		</div>
+	</section>
+{% endblock %}
+

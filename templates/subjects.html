@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+	
+		<div class="msg-row">
+		<div class="msg-access">
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+		        <ul>
+	    	    {% for message in messages %}
+	        	    <li> <strong> {{ message }} </strong> </li>
+	        	{% endfor %}
+	        	</ul>
+        	{% endif %}
+    	{% endwith %}
+		</div>
+	</div>
+	<div class="access-row">
+		<div class="access">
+		{% if authorized_user %}
+			<a id=limited href = "{{url_for('newSubject', school_id=school.id)}}">Add a Subject</a>
+		{% endif %}
+		</div>
+	</div>
+
+	<section class="content">
+		<div class="contents">
+		<p>
+			<h1>{{school.name}}</h1>
+			<h4>
+				{{school.branch}}, {{school.city}}<br>
+				{% if school.website %}
+					<a href={{school.website}}>{{school.website}}</a>
+				{% endif %}
+			</h4>
+		</p>
+		<div id='subjects'>
+		{% if subjects !=[] %}	
+			<h2>O-levels</h2>
+				{% for subject in subjects %}
+					{% if subject.level == 'O-levels' %}
+						{{subject.name}} <br> 
+						taught by {{subject.teacher}} <br> 
+						using the textbook "{{subject.textbook}}"
+						<br><br>
+						{% if authorized_user %}
+							<a href="{{url_for('editSubject', school_id = school.id, subject_id = subject.id)}}">Edit Subject</a>
+							|
+							<a href="{{url_for('deleteSubject', school_id = school.id, subject_id = subject.id)}}">Delete Subject</a>
+							<br><br>
+						{% endif %}				
+					{% endif %}
+				{% endfor %}
+			<h2>A-levels</h2>
+				{% for subject in subjects %}
+					{% if subject.level == 'A-levels' %}
+						{{subject.name}} <br> 
+						taught by {{subject.teacher}} <br> 
+						using the textbook "{{subject.textbook}}"
+						<br><br>
+						{% if authorized_user %}
+							<a href="{{url_for('editSubject', school_id = school.id, subject_id = subject.id)}}">Edit Subject</a>
+							|
+							<a href="{{url_for('deleteSubject', school_id = school.id, subject_id = subject.id)}}">Delete Subject</a>
+							<br><br>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+		{% endif %}
+	</div>
+	</div>
+	</section>
+{% endblock %}
+

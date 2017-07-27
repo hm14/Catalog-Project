@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+	{% if error %}
+		<script>
+			alert("You are not authorized to perform this action");
+		</script>
+	{% endif %}
+	<section class="content">
+		<div class="form">
+			<h1>Delete School</h1>
+			<form action="{{url_for('deleteSchool', school_id=school_id)}}" method = 'post'>
+				<p>Are you sure about deleting this school? </p>
+					<input type = 'submit' value = 'delete'>
+					<a href = "{{url_for('showSchools')}}"> Cancel </a>
+			</form>
+		</div>
+	</section>
+{% endblock %}

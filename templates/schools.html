@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<div class="msg-row">
+		<div class="msg-access">
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+		        <ul>
+	    	    {% for message in messages %}
+	        	    <li> <strong> {{ message }} </strong> </li>
+	        	{% endfor %}
+	        	</ul>
+        	{% endif %}
+    	{% endwith %}
+		</div>
+	</div>
+	<div class="access-row">
+		<div class="access">
+		{% if logged_in_user %}
+			<a id=limited href = "{{url_for('newSchool')}}">Add a School</a>
+		{% endif %}
+		</div>
+	</div>
+
+	<section class="content">
+			<br><br>
+		<div class="contents">
+				<h2>
+					Schools
+				</h2>
+				{% for school in schools %}
+					<a href = "{{url_for('showSubjects', school_id = school.id)}}">
+		 			<h3>{{school.name}}</h3>
+		 			</a>
+		 			{% for school_to_edit in schools_to_edit %}
+		 				{% if school.name == school_to_edit %}
+		 					<a href="{{url_for('editSchool', school_id = school.id)}}">Edit School</a>
+		 					|
+							<a href="{{url_for('deleteSchool', school_id = school.id)}}">Delete School</a>
+		 				{% endif %}
+		 			{% endfor %}
+				{% endfor %}
+		</div>
+<!-- 		<div class="details">
+				<h2>
+					Details (coming soon!)
+				</h2>
+		</div> -->
+	</section>
+
+{% endblock %}
