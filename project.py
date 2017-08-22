@@ -242,6 +242,7 @@ def newSchool():
                            user_id=login_session['user_id'],)
         session.add(newSchool)
         session.commit()
+        session.close()
         flash("New School Created")
         return redirect(url_for('showSchools'))
 
