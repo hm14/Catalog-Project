@@ -313,6 +313,10 @@ def deleteSchool(school_id):
             # Match school's creator with currently logged in user
             if school_to_delete.user_id == current_user:
                 if request.method == 'POST':
+                    subjects = session.query(Subject).filter_by(school_id=school_id)
+                    if subjects:
+                        session.query(Subject).filter_by(school_id=school_id).delete(synchronize_session=False)
+                        session.commit()
                     deletedSchool = session.query(School).\
                                     filter_by(id=school_id).first()
                     session.delete(deletedSchool)
