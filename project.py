@@ -273,6 +273,7 @@ def editSchool(school_id):
                     edited_school.website = request.form['website']
                     session.add(edited_school)
                     session.commit()
+                    session.close()
                     # Inform user of successful editing
                     flash("School Edited")
                     return redirect(url_for('showSchools'))
@@ -316,6 +317,7 @@ def deleteSchool(school_id):
                                     filter_by(id=school_id).first()
                     session.delete(deletedSchool)
                     session.commit()
+                    session.close()
                     # Inform user of successful deletion
                     flash("School Deleted")
                     return redirect(url_for('showSchools'))
@@ -406,6 +408,7 @@ def newSubject(school_id):
                                       user_id=current_user)
                     session.add(newSubject)
                     session.commit()
+                    session.close()
                     flash("New Subject Created")
                     return redirect(url_for('showSubjects',
                                              school_id=school_id))
@@ -447,6 +450,7 @@ def editSubject(school_id, subject_id):
                     subject_to_edit.textbook = request.form['textbook']
                     session.add(subject_to_edit)
                     session.commit()
+                    session.close()
                     flash("Subject Item Edited")
                     return redirect(url_for('showSubjects',
                                     school_id=school_id))
@@ -489,6 +493,7 @@ def deleteSubject(school_id, subject_id):
                     if request.method == 'POST':
                         session.delete(subject_to_delete)
                         session.commit()
+                        session.close()
                         flash('Subject Deleted')
                         return redirect(url_for('showSubjects',
                                                  school_id=school_id))
