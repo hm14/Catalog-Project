@@ -1,9 +1,11 @@
 #Subjective, a Catalog Project
+
 A program to create, read, update and delete school and subject entries by users. Read is accessible to all, create is accessible to all logged in users, and update and delete are only accessible to creators of subjects and schools.
 
 The program is built using python and sqlalchemy, and can be run using terminal. The program creates and writes output to localhost:5000.
 
 ##Installation
+
 Install [Python](https://www.python.org/downloads/)
 
 ##Configuration
@@ -15,8 +17,13 @@ Install [Python](https://www.python.org/downloads/)
     	followed by python project.py
 
 ##Code Layout
+
 Database set up is in database_setup.py
+
 Helper functions are in utilities.py
+
 All handlers are in project.py
+
 All html files are in the templates directory
+
 Style file is in static directory
